@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Price {
+  double buy = 1;
+  double sell = 2;
+}
+
+message Order {
+  string ticker = 1;
+  int32 volume = 2;
+  Price price = 3;
+}
