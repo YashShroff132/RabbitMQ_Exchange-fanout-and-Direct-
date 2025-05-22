@@ -11,17 +11,22 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0border.proto\"\"\n\x05Price\x12\x0b\n\x03\x62uy\x18\x01 \x01(\x01\x12\x0c\n\x04sell\x18\x02 \x01(\x01\">\n\x05Order\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x0e\n\x06volume\x18\x02 \x01(\x05\x12\x15\n\x05price\x18\x03 \x01(\x0b\x32\x06.Priceb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0border.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\"\n\x05Price\x12\x0b\n\x03\x62uy\x18\x01 \x01(\x01\x12\x0c\n\x04sell\x18\x02 \x01(\x01\"n\n\x05Order\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x0e\n\x06volume\x18\x02 \x01(\x05\x12\x15\n\x05price\x18\x03 \x01(\x0b\x32\x06.Price\x12.\n\ncreated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"v\n\x05Trade\x12\x10\n\x08trade_id\x18\x01 \x01(\t\x12\x13\n\x0btrade_price\x18\x02 \x01(\x01\x12\x16\n\x0etrade_quantity\x18\x03 \x01(\x05\x12.\n\ntrade_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"G\n\x08\x45nvelope\x12\x17\n\x05order\x18\x01 \x01(\x0b\x32\x06.OrderH\x00\x12\x17\n\x05trade\x18\x02 \x01(\x0b\x32\x06.TradeH\x00\x42\t\n\x07payloadb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'order_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _PRICE._serialized_start=15
-  _PRICE._serialized_end=49
-  _ORDER._serialized_start=51
-  _ORDER._serialized_end=113
+  _PRICE._serialized_start=48
+  _PRICE._serialized_end=82
+  _ORDER._serialized_start=84
+  _ORDER._serialized_end=194
+  _TRADE._serialized_start=196
+  _TRADE._serialized_end=314
+  _ENVELOPE._serialized_start=316
+  _ENVELOPE._serialized_end=387
 # @@protoc_insertion_point(module_scope)
