@@ -1,16 +1,23 @@
 import pika
 import time
 import sys
-import random
+import datetime
 import order_pb2
 from google.protobuf.timestamp_pb2 import Timestamp
 from datetime import datetime, timezone
+import random
 
-if len(sys.argv) != 2:
-    print("Usage: python3 sender.py <number_of_messages>")
+if len(sys.argv) != 3:
+    print("Usage: python3 sender.py <number_of_messages> <type: order|trade|mixed>")
     sys.exit(1)
 
 num_messages = int(sys.argv[1])
+mode = sys.argv[2].lower()
+
+if mode not in ['order', 'trade', 'mixed']:
+    print("Invalid type. Choose: order, trade, or mixed.")
+    sys.exit(1)
+
 received_count = 0
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
@@ -41,12 +48,15 @@ def create_trade(i):
     trade.trade_time.FromDatetime(datetime.now(timezone.utc))
     return trade
 
-
 # Send messages
 for i in range(num_messages):
     envelope = order_pb2.Envelope()
 
-    if random.choice(["order", "trade"]) == "order":
+    message_type = mode
+    if mode == "mixed":
+        message_type = random.choice(["order", "trade"])
+
+    if message_type == "order":
         envelope.order.CopyFrom(create_order(i))
         print(f"[x] Sent Order {i+1}: {envelope.order}")
     else:
