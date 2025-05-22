@@ -3,12 +3,12 @@ import time
 import sys
 import order_pb2
 
-# Read command-line arg (number of messages)
 if len(sys.argv) != 2:
     print("Usage: python3 sender.py <number_of_messages>")
     sys.exit(1)
 
 num_messages = int(sys.argv[1])
+received_count = 0
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
@@ -38,17 +38,21 @@ for i in range(num_messages):
 
 print("[x] All messages sent. Waiting for responses...")
 
-# Receive all responses (optional: wait for some or just exit)
+# Callback to count received responses
 def callback(ch, method, properties, body):
+    global received_count
     order = order_pb2.Order()
     order.ParseFromString(body)
-    print("[x] Received response:", order)
+    print(f"[x] Received response {received_count + 1}: {order}")
+    received_count += 1
+
+    if received_count >= num_messages:
+        print("[x] All responses received. Closing connection.")
+        channel.stop_consuming()
 
 channel.basic_consume(queue='q2', on_message_callback=callback, auto_ack=True)
 
 try:
     channel.start_consuming()
-except KeyboardInterrupt:
-    pass
 finally:
     connection.close()
